@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import {WaggonService} from '../shared/waggon.service';
-import {WaggonDto} from '../shared/waggon-dto';
+import {WaggonDto} from '../shared/entity/waggon-dto';
+import {TrainDto} from '../shared/entity/train-dto';
 
 @Component({
   selector: 'app-website',
@@ -12,14 +13,14 @@ export class WebsiteComponent implements OnInit {
 
   waggonService: WaggonService;
 
-  loadedWaggons: WaggonDto[];
+  loadedTrain: TrainDto;
 
   constructor(private client: HttpClient, aWaggonService: WaggonService) {
     this.waggonService = aWaggonService;
   }
 
   ngOnInit(): void {
-    this.loadedWaggons = this.waggonService.getWaggons('peterDerZug');
+    this.loadedTrain = this.waggonService.getTrain('DerTolleZug');
   }
 
   postTheStuff() {

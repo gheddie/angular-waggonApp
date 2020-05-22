@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {WaggonDto} from './waggon-dto';
+import {WaggonDto} from './entity/waggon-dto';
 import {HttpClient} from '@angular/common/http';
+import {TrainDto} from './entity/train-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,15 @@ export class WaggonService {
     this.client.post('http://localhost:8080/moveWaggons', body).subscribe(error => console.log(error));
   }
 
-  getWaggons(trainNumber: string): WaggonDto[] {
-    let waggons = new Array();
+  getTrain(trainNumber: string): TrainDto {
+
+    let train = new TrainDto();
+    let aWaggons = new Array();
     this.client.get('http://localhost:8080/waggondata?trainNumber=' + trainNumber)
       .subscribe(data => {
+
+        train.trainNumber = data['trainNumber'];
+
         console.log('read train: ' + data['trainNumber']);
         console.log('read waggon list: ' + data['waggons']);
 
@@ -31,11 +37,12 @@ export class WaggonService {
 
         for (let index = 0; index < length; index++) {
           console.log('read waggon ' + index + ': ' + data['waggons'][index]['waggonNumber']);
-          waggons.push(new WaggonDto(data['waggons'][index]['waggonNumber']));
+          aWaggons.push(new WaggonDto(data['waggons'][index]['waggonNumber']));
         }
       }, error => {
         console.log('error: ');
       });
-    return waggons;
+    train.waggons = aWaggons;
+    return train;
   }
 }
