@@ -6,7 +6,7 @@ import {TrainDto} from './entity/train-dto';
 @Injectable({
   providedIn: 'root'
 })
-export class WaggonService {
+export class TrainService {
 
   private client: HttpClient;
 

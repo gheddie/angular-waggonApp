@@ -1,8 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {VideoDBService} from '../shared/video-db.service';
 import {ActivatedRoute} from '@angular/router';
 import {TrainDto} from '../shared/entity/train-dto';
-import {WaggonService} from '../shared/waggon.service';
+import {TrainService} from '../shared/train.service';
 
 @Component({
   selector: 'app-video',
@@ -17,30 +16,20 @@ export class TrainComponent implements OnInit {
 
   trains: TrainDto[];
 
-  private waggonService: WaggonService;
+  private trainService: TrainService;
 
-  private loadedTrain: TrainDto;
+  loadedTrain: TrainDto;
 
-  constructor(private route: ActivatedRoute, datenbank: VideoDBService, aWaggonService: WaggonService) {
-    this.trains = datenbank.getTrains();
-    this.waggonService = aWaggonService;
+  constructor(private route: ActivatedRoute, aWaggonService: TrainService) {
+    this.trainService = aWaggonService;
   }
 
   ngOnInit(): void {
     console.log('Zug anzeigen: ' + this.route.snapshot.params.id);
-    this.loadedTrain = this.waggonService.getTrain(this.route.snapshot.params.id);
+    this.loadedTrain = this.trainService.getTrain(this.route.snapshot.params.id);
   }
 
-  postTheStuff() {
-    this.waggonService.postWaggon('qwe123aaa','rtz456aaa');
-  }
-
-  click(e) {
-    // alert('...click...' + e);
-    // console.log('...clicked...' + e);
-    // console.log(e);
-    // this.lenght = this.lenght + 1;
-    // console.log('Länge jetzt: ' + length);
-    console.log(this.trains);
+  switchWaggons() {
+    this.trainService.postWaggon('qwe123aaaklauswill','rtz456aaaklaus');
   }
 }

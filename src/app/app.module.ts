@@ -4,39 +4,30 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-
 import { TrainComponent } from './train/train.component';
-import { WebsiteComponent } from './website/website.component';
-import { PupsiComponent } from './pupsi/pupsi.component';
-
-import { VideoDBService} from './shared/video-db.service';
-import { WaggonService} from './shared/waggon.service';
+import { TrainService} from './shared/train.service';
 
 import { RouterModule, Routes } from '@angular/router';
-import { TrainlistComponent } from './trainlist/trainlist.component';
+import { TrainListComponent } from './trainlist/train-list.component';
 
-const meineRouten: Routes = [
+const routes: Routes = [
   {path: 'train/:id', component: TrainComponent},
-  {path: 'pupsi', component: PupsiComponent},
-  {path: 'website', component: WebsiteComponent},
-  {path: 'trains', component: TrainlistComponent}
+  {path: 'trains', component: TrainListComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     TrainComponent,
-    WebsiteComponent,
-    PupsiComponent,
-    TrainlistComponent
+    TrainListComponent
   ],
   imports: [
-    RouterModule.forRoot(meineRouten),
+    RouterModule.forRoot(routes),
     BrowserModule,
     FormsModule,
     HttpClientModule
   ],
-  providers: [VideoDBService, WaggonService],
+  providers: [TrainService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
