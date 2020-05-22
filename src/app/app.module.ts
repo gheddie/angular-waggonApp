@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
-import { VideoComponent } from './video/video.component';
+import { TrainComponent } from './train/train.component';
 import { WebsiteComponent } from './website/website.component';
 import { PupsiComponent } from './pupsi/pupsi.component';
 
@@ -16,7 +16,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TrainlistComponent } from './trainlist/trainlist.component';
 
 const meineRouten: Routes = [
-  {path: 'video/:id', component: VideoComponent},
+  {path: 'train/:id', component: TrainComponent},
   {path: 'pupsi', component: PupsiComponent},
   {path: 'website', component: WebsiteComponent},
   {path: 'trains', component: TrainlistComponent}
@@ -25,7 +25,7 @@ const meineRouten: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    VideoComponent,
+    TrainComponent,
     WebsiteComponent,
     PupsiComponent,
     TrainlistComponent

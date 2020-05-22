@@ -6,10 +6,10 @@ import {WaggonService} from '../shared/waggon.service';
 
 @Component({
   selector: 'app-video',
-  templateUrl: './video.component.html',
-  styleUrls: ['./video.component.css']
+  templateUrl: './train.component.html',
+  styleUrls: ['./train.component.css']
 })
-export class VideoComponent implements OnInit {
+export class TrainComponent implements OnInit {
 
   lenght = 0;
   name = 'a cool movie';
