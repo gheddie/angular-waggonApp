@@ -23,6 +23,6 @@ export class WebsiteComponent implements OnInit {
   }
 
   postTheStuff() {
-    this.waggonService.postWaggon();
+    this.waggonService.postWaggon('64','101');
   }
 }

@@ -13,20 +13,16 @@ export class WaggonService {
     this.client = aClient;
   }
 
-  postWaggon() {
+  postWaggon(wn1: string, wn2: string) {
     console.log('service now posting...');
-    const body = {movedWaggonNumber: 'Waggon 17', destinationWaggonNumber: 'Waggon 34'};
-    this.client.post('http://localhost:8080/moveWaggons', body).subscribe();
-    console.log('service posted...');
+    const body = {movedWaggonNumber: wn1, destinationWaggonNumber: wn2};
+    this.client.post('http://localhost:8080/moveWaggons', body).subscribe(error => console.log(error));
   }
 
   getWaggons(): WaggonDto[] {
-
     let waggons = new Array();
-
     this.client.get('http://localhost:8080/waggondata')
       .subscribe(data => {
-        // console.log('service got data: ' + JSON.parse(data.toString()));
         console.log('read train: ' + data['trainNumber']);
         console.log('read waggon list: ' + data['waggons']);
 
@@ -40,12 +36,6 @@ export class WaggonService {
       }, error => {
         console.log('error: ');
       });
-
-    /*
-    waggons.push(new WaggonDto('123_hanke'));
-    waggons.push(new WaggonDto('234_banke'));
-    */
-
     return waggons;
   }
 }
