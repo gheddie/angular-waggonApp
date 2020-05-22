@@ -14,12 +14,10 @@ export class VideoComponent implements OnInit {
   name = 'a cool movie';
   theUrl = 'http://www.spiegel.de';
 
-  // videos = ['Fight Club', 'Get shorty', 'Hunt for red october'];
   trains: TrainDto[];
 
-  constructor(private route: ActivatedRoute, datenbank: VideoDBService, @Inject('pupskopf') pupskopf: string) {
+  constructor(private route: ActivatedRoute, datenbank: VideoDBService) {
     this.trains = datenbank.getTrains();
-    console.log('ic: ' + pupskopf);
   }
 
   ngOnInit(): void {

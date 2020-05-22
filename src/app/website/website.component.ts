@@ -24,6 +24,6 @@ export class WebsiteComponent implements OnInit {
   }
 
   postTheStuff() {
-    this.waggonService.postWaggon('qwe','rtz');
+    this.waggonService.postWaggon('qwe123aaa','rtz456aaa');
   }
 }

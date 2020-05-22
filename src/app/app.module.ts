@@ -13,11 +13,13 @@ import { VideoDBService} from './shared/video-db.service';
 import { WaggonService} from './shared/waggon.service';
 
 import { RouterModule, Routes } from '@angular/router';
+import { TrainlistComponent } from './trainlist/trainlist.component';
 
 const meineRouten: Routes = [
   {path: 'video/:id', component: VideoComponent},
   {path: 'pupsi', component: PupsiComponent},
-  {path: 'website', component: WebsiteComponent}
+  {path: 'website', component: WebsiteComponent},
+  {path: 'trains', component: TrainlistComponent}
 ];
 
 @NgModule({
@@ -25,7 +27,8 @@ const meineRouten: Routes = [
     AppComponent,
     VideoComponent,
     WebsiteComponent,
-    PupsiComponent
+    PupsiComponent,
+    TrainlistComponent
   ],
   imports: [
     RouterModule.forRoot(meineRouten),
@@ -33,7 +36,7 @@ const meineRouten: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [VideoDBService, {provide: 'pupskopf', useValue: 'pups'}, WaggonService],
+  providers: [VideoDBService, WaggonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
