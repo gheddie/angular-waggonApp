@@ -45,4 +45,25 @@ export class WaggonService {
     train.waggons = aWaggons;
     return train;
   }
+
+  getTrains(): TrainDto[] {
+
+    let aTrains = new Array();
+
+    this.client.get('http://localhost:8080/traindata')
+      .subscribe(data => {
+        console.log(data);
+        length = data['length'];
+        console.log('Anzahl Züge: ' + length);
+        for (let index = 0; index < length; index++) {
+          let train = new TrainDto();
+          train.trainNumber = data[index]['trainNumber'];
+          aTrains.push(train);
+        }
+      }, error => {
+        console.log('error: ');
+      });
+
+    return aTrains;
+  }
 }
