@@ -1,3 +1,7 @@
-<p>website works 123456!</p>
+<p>Wagenliste:</p>
 
-<p (click)="postTheStuff()">klick</p>
+<li *ngFor="let waggon of loadedWaggons">
+  Ein Wagen : {{ waggon.waggonNumber }}
+</li>
+
+<p (click)="postTheStuff()">Jetzt posten...</p>
