@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {VideoDBService} from '../shared/video-db.service';
 import {ActivatedRoute} from '@angular/router';
+import {TrainDto} from '../shared/entity/train-dto';
 
 @Component({
   selector: 'app-video',
@@ -14,10 +15,10 @@ export class VideoComponent implements OnInit {
   theUrl = 'http://www.spiegel.de';
 
   // videos = ['Fight Club', 'Get shorty', 'Hunt for red october'];
-  videos = [];
+  trains: TrainDto[];
 
   constructor(private route: ActivatedRoute, datenbank: VideoDBService, @Inject('pupskopf') pupskopf: string) {
-    this.videos = datenbank.getVideos();
+    this.trains = datenbank.getTrains();
     console.log('ic: ' + pupskopf);
   }
 
@@ -31,6 +32,6 @@ export class VideoComponent implements OnInit {
     // console.log(e);
     // this.lenght = this.lenght + 1;
     // console.log('Länge jetzt: ' + length);
-    console.log(this.videos);
+    console.log(this.trains);
   }
 }
