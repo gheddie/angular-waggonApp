@@ -19,9 +19,9 @@ export class WaggonService {
     this.client.post('http://localhost:8080/moveWaggons', body).subscribe(error => console.log(error));
   }
 
-  getWaggons(): WaggonDto[] {
+  getWaggons(trainNumber: string): WaggonDto[] {
     let waggons = new Array();
-    this.client.get('http://localhost:8080/waggondata')
+    this.client.get('http://localhost:8080/waggondata?trainNumber=' + trainNumber)
       .subscribe(data => {
         console.log('read train: ' + data['trainNumber']);
         console.log('read waggon list: ' + data['waggons']);

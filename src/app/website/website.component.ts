@@ -19,7 +19,7 @@ export class WebsiteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadedWaggons = this.waggonService.getWaggons();
+    this.loadedWaggons = this.waggonService.getWaggons('peterDerZug');
   }
 
   postTheStuff() {
