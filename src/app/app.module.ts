@@ -10,6 +10,9 @@ import { TrainService} from './shared/train.service';
 import { RouterModule, Routes } from '@angular/router';
 import { TrainListComponent } from './trainlist/train-list.component';
 
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 const routes: Routes = [
   {path: 'train/:id', component: TrainComponent},
   {path: 'trains', component: TrainListComponent}

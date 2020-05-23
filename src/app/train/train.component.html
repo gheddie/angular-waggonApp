@@ -1,7 +1,7 @@
 <p>Wagenliste für Zug {{loadedTrain.trainNumber}}:</p>
 
- <li *ngFor="let waggon of loadedTrain.waggons">
+ <div *ngFor="let waggon of loadedTrain.waggons">
    Ein Wagen : {{ waggon.waggonNumber }}
- </li>
+ </div>
 
  <p (click)="switchWaggons()">Jetzt posten...</p>

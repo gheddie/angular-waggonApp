@@ -4,15 +4,11 @@ import {TrainDto} from '../shared/entity/train-dto';
 import {TrainService} from '../shared/train.service';
 
 @Component({
-  selector: 'app-video',
+  selector: 'app-train',
   templateUrl: './train.component.html',
   styleUrls: ['./train.component.css']
 })
 export class TrainComponent implements OnInit {
-
-  lenght = 0;
-  name = 'a cool movie';
-  theUrl = 'http://www.spiegel.de';
 
   trains: TrainDto[];
 

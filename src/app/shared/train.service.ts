@@ -58,6 +58,7 @@ export class TrainService {
         for (let index = 0; index < length; index++) {
           let train = new TrainDto();
           train.trainNumber = data[index]['trainNumber'];
+          train.trainState = data[index]['trainState'];
           aTrains.push(train);
         }
       }, error => {
