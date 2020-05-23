@@ -27,9 +27,18 @@ export class TrainComponent implements OnInit {
 
   waggonUp(aWaggonNumber: string, aTrainId: string) {
     this.trainService.switchWaggons(aWaggonNumber, aTrainId, 'UP');
+    window.location.reload();
   }
 
   waggonDown(aWaggonNumber: string, aTrainId: string) {
     this.trainService.switchWaggons(aWaggonNumber, aTrainId, 'DOWN');
+    window.location.reload();
+  }
+
+  removeWaggon(aWaggonNumber: string, aTrainId: string) {
+    if (confirm('Wagen löschen?')) {
+      this.trainService.switchWaggons(aWaggonNumber, aTrainId, 'REMOVE');
+      window.location.reload();
+    }
   }
 }

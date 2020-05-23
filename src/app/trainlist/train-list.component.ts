@@ -22,12 +22,18 @@ export class TrainListComponent implements OnInit {
   }
 
   departTrain(trainId: string) {
-    console.log('departing train: ' + trainId);
-    this.trainService.changeTrainState(trainId, 'DEPARTURE');
+    if (confirm('Zug abfahren?')) {
+      console.log('departing train: ' + trainId);
+      this.trainService.changeTrainState(trainId, 'DEPARTURE');
+      window.location.reload();
+    }
   }
 
   arriveTrain(trainId: string) {
-    console.log('arriving train: ' + trainId);
-    this.trainService.changeTrainState(trainId, 'ARRIVAL');
+    if (confirm('Zug ankommen?')) {
+      console.log('arriving train: ' + trainId);
+      this.trainService.changeTrainState(trainId, 'ARRIVAL');
+      window.location.reload();
+    }
   }
 }
