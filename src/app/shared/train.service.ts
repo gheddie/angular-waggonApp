@@ -14,7 +14,7 @@ export class TrainService {
     this.client = aClient;
   }
 
-  postWaggon(wn1: string, wn2: string) {
+  switchWaggons(wn1: string, wn2: string) {
     console.log('service now posting...');
     const body = {movedWaggonNumber: wn1, destinationWaggonNumber: wn2};
     this.client.post('http://localhost:8080/moveWaggons', body).subscribe(error => console.log(error));
