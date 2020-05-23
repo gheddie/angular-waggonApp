@@ -20,4 +20,12 @@ export class TrainListComponent implements OnInit {
   ngOnInit(): void {
     this.trains = this.waggonService.getTrains();
   }
+
+  departTrain() {
+    console.log('departing train...');
+  }
+
+  arriveTrain() {
+    console.log('arriving train...');
+  }
 }

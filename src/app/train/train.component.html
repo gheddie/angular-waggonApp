@@ -1,7 +1,18 @@
 <p>Wagenliste für Zug {{loadedTrain.trainNumber}}:</p>
 
  <div *ngFor="let waggon of loadedTrain.waggons">
-   Ein Wagen : {{ waggon.waggonNumber }}
+
+   {{ waggon.waggonNumber }}
+
+   <container-element [ngSwitch]="waggon.waggonType">
+     <img *ngSwitchCase="'AVEX'" src="assets/ico/waggons/AVEX.png">
+     <img *ngSwitchCase="'BVEX'" src="assets/ico/waggons/BVEX.png">
+     <img *ngSwitchDefault src="assets/ico/waggons/BVEX.png">
+   </container-element>
+
+   <img (click)="waggonUp()" src="assets/ico/arrow_up.png">
+   <img (click)="waggonDown()" src="assets/ico/arrow_down.png">
+
  </div>
 
  <p (click)="switchWaggons()">Jetzt posten...</p>

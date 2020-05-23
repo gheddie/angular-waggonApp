@@ -2,7 +2,10 @@ export class WaggonDto {
 
   waggonNumber: string;
 
-  constructor(aWaggonNumber: string) {
+  waggonType: string;
+
+  constructor(aWaggonNumber: string, aWaggonType: string) {
     this.waggonNumber = aWaggonNumber;
+    this.waggonType = aWaggonType;
   }
 }

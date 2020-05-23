@@ -37,7 +37,7 @@ export class TrainService {
 
         for (let index = 0; index < length; index++) {
           console.log('read waggon ' + index + ': ' + data['waggons'][index]['waggonNumber']);
-          aWaggons.push(new WaggonDto(data['waggons'][index]['waggonNumber']));
+          aWaggons.push(new WaggonDto(data['waggons'][index]['waggonNumber'], data['waggons'][index]['waggonType']));
         }
       }, error => {
         console.log('error: ');

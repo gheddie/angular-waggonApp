@@ -28,4 +28,12 @@ export class TrainComponent implements OnInit {
   switchWaggons() {
     this.trainService.postWaggon('qwe123aaaklauswill','rtz456aaaklaus');
   }
+
+  waggonUp() {
+    console.log('waggon up...');
+  }
+
+  waggonDown() {
+    console.log('waggon down...');
+  }
 }
