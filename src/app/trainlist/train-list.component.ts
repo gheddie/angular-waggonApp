@@ -21,11 +21,11 @@ export class TrainListComponent implements OnInit {
     this.trains = this.waggonService.getTrains();
   }
 
-  departTrain() {
-    console.log('departing train...');
+  departTrain(trainId: string) {
+    console.log('departing train: ' + trainId);
   }
 
-  arriveTrain() {
-    console.log('arriving train...');
+  arriveTrain(trainId: string) {
+    console.log('arriving train: ' + trainId);
   }
 }

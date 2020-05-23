@@ -25,13 +25,11 @@ export class TrainComponent implements OnInit {
     this.loadedTrain = this.trainService.getTrain(this.route.snapshot.params.id);
   }
 
-  waggonUp(aWaggonSource: string, aWaggonTarget: string) {
-    console.log('waggon up ['+aWaggonSource+' to '+aWaggonTarget+']...');
-    this.trainService.switchWaggons(aWaggonSource, aWaggonTarget);
+  waggonUp(aWaggonNumber: string, aTrainId: string) {
+    this.trainService.switchWaggons(aWaggonNumber, aTrainId, 'UP');
   }
 
-  waggonDown(aWaggonSource: string, aWaggonTarget: string) {
-    console.log('waggon down ['+aWaggonSource+' to '+aWaggonTarget+']...');
-    this.trainService.switchWaggons(aWaggonSource, aWaggonTarget);
+  waggonDown(aWaggonNumber: string, aTrainId: string) {
+    this.trainService.switchWaggons(aWaggonNumber, aTrainId, 'DOWN');
   }
 }

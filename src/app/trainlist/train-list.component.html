@@ -5,12 +5,8 @@
 
     <h1><a routerLink="/train/{{ train.trainNumber }}">{{ train.trainNumber }}</a></h1>
 
-    <img *ngIf="train.canDepart()" (click)="departTrain()" src="assets/ico/departtrain.png">
-    <img *ngIf="train.canArrive()" (click)="arriveTrain()" src="assets/ico/arrivetrain.png">
+    <img *ngIf="train.canDepart()" (click)="departTrain(train.trainNumber)" src="assets/ico/departtrain.png">
+    <img *ngIf="train.canArrive()" (click)="arriveTrain(train.trainNumber)" src="assets/ico/arrivetrain.png">
 
-    <!--
-    <img *ngIf="train.canDepart()" src="assets/ico/departtrain.png">
-    <img *ngIf="train.canArrive()" src="assets/ico/arrivetrain.png">
-    -->
   </div>
 </ul>
