@@ -9,23 +9,25 @@ import {TrainDto} from '../shared/entity/train-dto';
 })
 export class TrainListComponent implements OnInit {
 
-  private waggonService: TrainService;
+  private trainService: TrainService;
 
   trains: TrainDto[];
 
   constructor(aWaggonService: TrainService) {
-    this.waggonService = aWaggonService;
+    this.trainService = aWaggonService;
   }
 
   ngOnInit(): void {
-    this.trains = this.waggonService.getTrains();
+    this.trains = this.trainService.getTrains();
   }
 
   departTrain(trainId: string) {
     console.log('departing train: ' + trainId);
+    this.trainService.changeTrainState(trainId, 'DEPARTURE');
   }
 
   arriveTrain(trainId: string) {
     console.log('arriving train: ' + trainId);
+    this.trainService.changeTrainState(trainId, 'ARRIVAL');
   }
 }

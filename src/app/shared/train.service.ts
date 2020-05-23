@@ -14,6 +14,12 @@ export class TrainService {
     this.client = aClient;
   }
 
+  changeTrainState(aTrainId: string, anAction: string) {
+    console.log('changing train state of train ' + aTrainId + ', action: ' + anAction);
+    const body = {trainId: aTrainId, trainAction: anAction};
+    this.client.post('http://localhost:8080/changeTrainState', body).subscribe(error => console.log(error));
+  }
+
   switchWaggons(aWaggonNumber: string, aTrainId: string, aDirection: string) {
     console.log('switching waggons, waggon number:' + aWaggonNumber);
     console.log('switching waggons, train id:' + aTrainId);
