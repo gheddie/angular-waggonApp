@@ -41,4 +41,11 @@ export class TrainComponent implements OnInit {
       window.location.reload();
     }
   }
+
+  waggonToEnd(aWaggonNumber: string, aTrainId: string) {
+    if (confirm('Wagen an das Zugende stellen?')) {
+      this.trainService.waggonToEnd(aWaggonNumber, aTrainId);
+      window.location.reload();
+    }
+  }
 }
