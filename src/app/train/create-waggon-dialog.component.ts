@@ -1,13 +1,13 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ActivatedRoute} from '@angular/router';
+import {TrainService} from '../shared/train.service';
 
 @Component({
     selector: 'app-dialog-overview-example-dialog',
     templateUrl: 'create-waggon-dialog.html'
 })
 export class CreateWaggonDialogComponent {
-
-  // options: ['A', 'B', 'C'];
 
     constructor(
         public dialogRef: MatDialogRef<CreateWaggonDialogComponent>,

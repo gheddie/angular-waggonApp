@@ -18,8 +18,8 @@ export class TrainComponent implements OnInit {
 
   loadedTrain: TrainDto;
 
-  constructor(private route: ActivatedRoute, aWaggonService: TrainService, public dialog: MatDialog) {
-    this.trainService = aWaggonService;
+  constructor(private route: ActivatedRoute, aTrainService: TrainService, public dialog: MatDialog) {
+    this.trainService = aTrainService;
   }
 
   ngOnInit(): void {
@@ -57,9 +57,10 @@ export class TrainComponent implements OnInit {
       width: '450px',
       data: {waggonNumber: '', waggonType: ''}
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed: ' + result.waggonNumber);
+      console.log('The dialog was closed: ' + result);
+      this.trainService.createWaggon(result, this.loadedTrain.trainNumber);
+      window.location.reload();
     });
   }
 }

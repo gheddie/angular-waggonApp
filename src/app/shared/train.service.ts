@@ -90,6 +90,11 @@ export class TrainService {
     this.client.post('http://localhost:8080/moveWaggons', body).subscribe(error => this.handleError(error));
   }
 
+  createWaggon(aWaggonNumber: string, aTrainId: string) {
+    const body = {waggonNumber: aWaggonNumber, trainId: aTrainId, waggonType: 'AVEX'};
+    this.client.put('http://localhost:8080/waggon', body).subscribe(error => this.handleError(error));
+  }
+
   handleError(error: object) {
     console.log('handling an error...');
     if (error instanceof  HttpErrorResponse) {
