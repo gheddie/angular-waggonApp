@@ -12,6 +12,9 @@ import { TrainListComponent } from './trainlist/train-list.component';
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
+import {CreateWaggonDialogComponent} from './train/create-waggon-dialog.component';
 
 const routes: Routes = [
   {path: 'train/:id', component: TrainComponent},
@@ -22,15 +25,21 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     TrainComponent,
-    TrainListComponent
+    TrainListComponent,
+    CreateWaggonDialogComponent
   ],
   imports: [
+    MatDialogModule,
     RouterModule.forRoot(routes),
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [TrainService],
+  providers: [
+    TrainService,
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

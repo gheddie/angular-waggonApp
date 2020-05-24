@@ -1,7 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TrainDto} from '../shared/entity/train-dto';
 import {TrainService} from '../shared/train.service';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateWaggonDialogComponent} from './create-waggon-dialog.component';
 
 @Component({
   selector: 'app-train',
@@ -16,7 +18,7 @@ export class TrainComponent implements OnInit {
 
   loadedTrain: TrainDto;
 
-  constructor(private route: ActivatedRoute, aWaggonService: TrainService) {
+  constructor(private route: ActivatedRoute, aWaggonService: TrainService, public dialog: MatDialog) {
     this.trainService = aWaggonService;
   }
 
@@ -48,4 +50,17 @@ export class TrainComponent implements OnInit {
       window.location.reload();
     }
   }
+
+  createWaggon(aWaggonNumber: string, aTrainId: string) {
+
+    const dialogRef = this.dialog.open(CreateWaggonDialogComponent, {
+      width: '450px',
+      data: {waggonNumber: 't123_waggonNumber', waggonType: 't123_waggonType'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed: ' + result.waggonNumber);
+    });
+  }
 }
+
