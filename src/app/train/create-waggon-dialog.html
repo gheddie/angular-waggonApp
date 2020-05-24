@@ -1,12 +1,22 @@
 <h1 mat-dialog-title>Wagen erstellen</h1>
 <div mat-dialog-content>
-  <!--
-  <form-field>
+  <mat-form-field>
     <mat-label>Wagen-Nummer</mat-label>
     <input matInput [(ngModel)]="data.waggonNumber">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
     <mat-label>Wagen-Typ</mat-label>
-    <input matInput [(ngModel)]="data.waggonType">
-  </form-field>
-  -->
+    <mat-select>
+      <!--
+      <mat-option *ngFor="let option of options" value="{{option}}">{{option}}</mat-option>
+      -->
+      <!-- TODO get values from component !! -->
+      <mat-option value="AVEX">AVEX</mat-option>
+      <mat-option value="BVEX">BVEX</mat-option>
+      <mat-option value="CVEX">CVEX</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
   <button mat-button [mat-dialog-close]="data.waggonNumber" cdkFocusInitial>Ok</button>
 </div>

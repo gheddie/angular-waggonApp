@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TrainDto} from '../shared/entity/train-dto';
 import {TrainService} from '../shared/train.service';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CreateWaggonDialogComponent} from './create-waggon-dialog.component';
 
 @Component({
@@ -55,7 +55,7 @@ export class TrainComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CreateWaggonDialogComponent, {
       width: '450px',
-      data: {waggonNumber: 't123_waggonNumber', waggonType: 't123_waggonType'}
+      data: {waggonNumber: '', waggonType: ''}
     });
 
     dialogRef.afterClosed().subscribe(result => {

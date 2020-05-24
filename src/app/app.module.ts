@@ -15,6 +15,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {CreateWaggonDialogComponent} from './train/create-waggon-dialog.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 const routes: Routes = [
   {path: 'train/:id', component: TrainComponent},
@@ -30,11 +32,13 @@ const routes: Routes = [
   ],
   imports: [
     MatDialogModule,
+    MatInputModule,
     RouterModule.forRoot(routes),
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [
     TrainService,

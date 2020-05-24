@@ -7,6 +7,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class CreateWaggonDialogComponent {
 
+  // options: ['A', 'B', 'C'];
+
     constructor(
         public dialogRef: MatDialogRef<CreateWaggonDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: CreateWaggonDialogData) {
