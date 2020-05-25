@@ -13,9 +13,7 @@ import {CreateWaggonDialogComponent} from './create-waggon-dialog.component';
 export class TrainComponent implements OnInit {
 
   trains: TrainDto[];
-
   private trainService: TrainService;
-
   loadedTrain: TrainDto;
 
   constructor(private route: ActivatedRoute, aTrainService: TrainService, public dialog: MatDialog) {
@@ -64,8 +62,13 @@ export class TrainComponent implements OnInit {
     });
   }
 
-  waggonClicked() {
-    console.log('waggon clicked..');
+  waggonClicked(position: number) {
+    console.log('waggon clicked: ' +  position);
+    // let index = 0;
+    for (var _i = 0; _i < this.loadedTrain.waggons.length; _i++) {
+      document.getElementById('waggonTable' + _i).style.height = '250px';
+      document.getElementById('waggonInfo' + _i).style.height = '250px';
+    }
   }
 }
 
