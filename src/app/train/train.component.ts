@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TrainDto} from '../shared/entity/train-dto';
 import {TrainService} from '../shared/train.service';
@@ -10,11 +10,15 @@ import {CreateWaggonDialogComponent} from './create-waggon-dialog.component';
   templateUrl: './train.component.html',
   styleUrls: ['./train.component.css']
 })
-export class TrainComponent implements OnInit {
+export class TrainComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   trains: TrainDto[];
   private trainService: TrainService;
   loadedTrain: TrainDto;
+
+  infoHeight = 0;
+
+  initialized = false;
 
   constructor(private route: ActivatedRoute, aTrainService: TrainService, public dialog: MatDialog) {
     this.trainService = aTrainService;
@@ -23,6 +27,7 @@ export class TrainComponent implements OnInit {
   ngOnInit(): void {
     console.log('Zug anzeigen: ' + this.route.snapshot.params.id);
     this.loadedTrain = this.trainService.getTrain(this.route.snapshot.params.id);
+    console.log('Wagen geladen: ' + this.loadedTrain.waggons.length);
   }
 
   waggonUp(aWaggonNumber: string, aTrainId: string) {
@@ -63,12 +68,75 @@ export class TrainComponent implements OnInit {
   }
 
   waggonClicked(position: number) {
+
+    // this.hideOrShowInfoPanels(true);
+    this.showInfoPanel(position);
+
+    /*
     console.log('waggon clicked: ' +  position);
-    // let index = 0;
-    for (var _i = 0; _i < this.loadedTrain.waggons.length; _i++) {
-      document.getElementById('waggonTable' + _i).style.height = '250px';
-      document.getElementById('waggonInfo' + _i).style.height = '250px';
+    if (this.infoVisible) {
+      console.log('visible: hiding');
+    } else {
+      console.log('invisible: showing');
+    }
+    for (let index = 0; index < this.loadedTrain.waggons.length; index++) {
+      const infoFrame = document.getElementById('waggonInfo' + index);
+      const infoTable = document.getElementById('waggonTable' + index);
+      if (this.infoVisible) {
+        console.log('hiding: ' + index);
+        infoFrame.style.visibility = 'hidden';
+        infoFrame.style.height = '0px';
+        this.infoHeight = +infoFrame.style.height;
+      } else {
+        console.log('showing: ' + index);
+        infoFrame.style.visibility = 'visible';
+        infoFrame.style.height = '100px';
+      }
+    }
+    // this.infoVisible = !(this.infoVisible);
+    */
+  }
+
+  showInfoPanel(position: number) {
+    console.log('showing info panel: ' + position);
+    const infoFrame = document.getElementById('waggonInfo' + position);
+    infoFrame.style.visibility = 'visible';
+    infoFrame.style.height = '100px';
+  }
+
+  hideOrShowInfoPanels(show: boolean) {
+    console.log('hiding info panels: ' + show);
+    for (let index = 0; index < this.loadedTrain.waggons.length; index++) {
+      const infoFrame = document.getElementById('waggonInfo' + index);
+      if (show) {
+        console.log('showing panel: ' + index);
+        infoFrame.style.visibility = 'visible';
+        infoFrame.style.height = '250px';
+      } else {
+        console.log('hiding panel: ' + index);
+        infoFrame.style.visibility = 'hidden';
+        infoFrame.style.height = '0px';
+        this.infoHeight = +infoFrame.style.height;
+      }
     }
   }
-}
 
+  ngAfterViewInit() {
+
+    /*
+    console.log('after view init: ' + this.loadedTrain.waggons.length);
+    this.hideOrShowInfoPanels(false);
+    */
+  }
+
+  ngAfterViewChecked() {
+
+    /*
+    if (!this.initialized) {
+      console.log('after view checked: ' + this.loadedTrain.waggons.length);
+      this.hideOrShowInfoPanels(false);
+    }
+    this.initialized = true;
+    */
+  }
+}

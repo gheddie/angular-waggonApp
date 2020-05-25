@@ -54,6 +54,8 @@ export class TrainService {
 
   getTrain(trainNumber: string): TrainDto {
 
+    console.log('loading train: ' + trainNumber);
+
     let train = new TrainDto();
     let aWaggons = new Array();
     this.client.get('http://localhost:8080/waggondata?trainNumber=' + trainNumber)
@@ -70,11 +72,15 @@ export class TrainService {
         for (let index = 0; index < length; index++) {
           console.log('read waggon ' + index + ': ' + data['waggons'][index]['waggonNumber']);
           aWaggons.push(new WaggonDto(data['waggons'][index]['waggonNumber'], data['waggons'][index]['waggonType']));
+          console.log('push waggon...');
         }
       }, error => {
         this.handleError(error);
       });
+
     train.waggons = aWaggons;
+    console.log('set ' + aWaggons.length + ' waggons.');
+    console.log('loaded train ' + trainNumber + ' with ' + train.waggons.length + ' waggons.');
     return train;
   }
 
