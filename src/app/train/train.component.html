@@ -1,18 +1,66 @@
 <p>Wagenliste für Zug {{loadedTrain.trainNumber}}:</p>
 
- <div *ngFor="let waggon of loadedTrain.waggons; let i = index">
+ <div class="bordereditem" *ngFor="let waggon of loadedTrain.waggons; let index = index">
 
-   {{ waggon.waggonNumber }}
+   <table id="waggonListTable" border="0">
+     <tr>
+       <td id="waggonCell">
+         {{ waggon.waggonNumber }}
+       </td>
+       <td id="waggonImageCell" (click)="waggonClicked()">
+         <container-element [ngSwitch]="waggon.waggonType">
+           <img *ngSwitchCase="'AVEX'" src="assets/ico/waggons/AVEX.png">
+           <img *ngSwitchCase="'BVEX'" src="assets/ico/waggons/BVEX.png">
+           <img *ngSwitchDefault src="assets/ico/waggons/BVEX.png">
+         </container-element>
+       </td>
+       <td id="waggonUpCell">
+         <img *ngIf="index > 0" (click)="waggonUp(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/arrow_up.png">
+       </td>
+       <td id="waggonDownCell">
+         <img *ngIf="index < loadedTrain.waggons.length - 1" (click)="waggonDown(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/arrow_down.png">
+       </td>
+       <td id="waggonRemoveCell">
+         <img (click)="removeWaggon(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/delete.png">
+       </td>
+       <td id="waggonToEndCell">
+         <img (click)="waggonToEnd(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/to_end.png">
+       </td>
+       <td id="waggonCreateCell">
+         <img (click)="createWaggon(waggon.waggonNumber, loadedTrain.trainNumber, index)" src="assets/ico/new.png">
+       </td>
+     </tr>
+   </table>
 
-   <container-element [ngSwitch]="waggon.waggonType">
-     <img *ngSwitchCase="'AVEX'" src="assets/ico/waggons/AVEX.png">
-     <img *ngSwitchCase="'BVEX'" src="assets/ico/waggons/BVEX.png">
-     <img *ngSwitchDefault src="assets/ico/waggons/BVEX.png">
-   </container-element>
-
-   <img *ngIf="i > 0" (click)="waggonUp(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/arrow_up.png">
-   <img *ngIf="i < loadedTrain.waggons.length - 1" (click)="waggonDown(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/arrow_down.png">
-   <img (click)="removeWaggon(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/delete.png">
-   <img (click)="waggonToEnd(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/to_end.png">
-   <img (click)="createWaggon(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/new.png">
+   <!--
+   <table>
+     <tr>
+       <td width="100">
+         {{ waggon.waggonNumber }}
+       </td>
+       <td width="50">
+         <container-element [ngSwitch]="waggon.waggonType">
+           <img *ngSwitchCase="'AVEX'" src="assets/ico/waggons/AVEX.png">
+           <img *ngSwitchCase="'BVEX'" src="assets/ico/waggons/BVEX.png">
+           <img *ngSwitchDefault src="assets/ico/waggons/BVEX.png">
+         </container-element>
+       </td>
+       <td width="50">
+         <img *ngIf="i > 0" (click)="waggonUp(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/arrow_up.png">
+       </td>
+       <td width="50">
+         <img *ngIf="i < loadedTrain.waggons.length - 1" (click)="waggonDown(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/arrow_down.png">
+       </td>
+       <td>
+         <img (click)="removeWaggon(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/delete.png">
+       </td>
+       <td width="50">
+         <img (click)="waggonToEnd(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/to_end.png">
+       </td>
+       <td width="50">
+         <img (click)="createWaggon(waggon.waggonNumber, loadedTrain.trainNumber)" src="assets/ico/new.png">
+       </td>
+     </tr>
+   </table>
+   -->
  </div>

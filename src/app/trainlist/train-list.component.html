@@ -1,12 +1,10 @@
 <p>Vorhandene Züge:</p>
 
-<ul>
-  <div *ngFor="let train of trains">
+<div class="bordereditem" *ngFor="let train of trains">
 
-    <h1><a routerLink="/train/{{ train.trainNumber }}">{{ train.trainNumber }}</a></h1>
+  <a routerLink="/train/{{ train.trainNumber }}">{{ train.trainNumber }}</a>
 
-    <img *ngIf="train.canDepart()" (click)="departTrain(train.trainNumber)" src="assets/ico/departtrain.png">
-    <img *ngIf="train.canArrive()" (click)="arriveTrain(train.trainNumber)" src="assets/ico/arrivetrain.png">
+  <img *ngIf="train.canDepart()" (click)="departTrain(train.trainNumber)" src="assets/ico/departtrain.png">
+  <img *ngIf="train.canArrive()" (click)="arriveTrain(train.trainNumber)" src="assets/ico/arrivetrain.png">
 
-  </div>
-</ul>
+</div>

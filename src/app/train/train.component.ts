@@ -51,7 +51,7 @@ export class TrainComponent implements OnInit {
     }
   }
 
-  createWaggon(aWaggonNumber: string, aTrainId: string) {
+  createWaggon(aWaggonNumber: string, aTrainId: string, position: number) {
 
     const dialogRef = this.dialog.open(CreateWaggonDialogComponent, {
       width: '450px',
@@ -59,9 +59,13 @@ export class TrainComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed: ' + result);
-      this.trainService.createWaggon(result, this.loadedTrain.trainNumber);
+      this.trainService.createWaggon(result, this.loadedTrain.trainNumber, position);
       window.location.reload();
     });
+  }
+
+  waggonClicked() {
+    console.log('waggon clicked..');
   }
 }
 

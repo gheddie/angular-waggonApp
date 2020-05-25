@@ -14,6 +14,21 @@ export class TrainService {
     this.client = aClient;
   }
 
+  createWaggon(aWaggonNumber: string, aTrainId: string,  atPosition: number) {
+    console.log('creating waggon: ' + aWaggonNumber);
+    const body = {waggonNumber: aWaggonNumber, trainId: aTrainId, waggonType: 'AVEX', position: atPosition};
+    this.client.put('http://localhost:8080/waggon', body).subscribe(
+      (response) => {
+        // ...
+      },
+      (error) => {
+        console.log('error caught...');
+        this.handleError(error);
+      }
+    );
+    console.log('succesfully created waggon ' + aTrainId + '.');
+  }
+
   changeTrainState(aTrainId: string, anAction: string) {
     console.log('changing train state of train ' + aTrainId + ', action: ' + anAction);
     const body = {trainId: aTrainId, trainAction: anAction};
@@ -88,11 +103,6 @@ export class TrainService {
   waggonToEnd(aWaggonNumber: string, aTrainId: string) {
     const body = {movedWaggonNumber: aWaggonNumber, trainId: aTrainId, direction: 'TOEND'};
     this.client.post('http://localhost:8080/moveWaggons', body).subscribe(error => this.handleError(error));
-  }
-
-  createWaggon(aWaggonNumber: string, aTrainId: string) {
-    const body = {waggonNumber: aWaggonNumber, trainId: aTrainId, waggonType: 'AVEX'};
-    this.client.put('http://localhost:8080/waggon', body).subscribe(error => this.handleError(error));
   }
 
   handleError(error: object) {

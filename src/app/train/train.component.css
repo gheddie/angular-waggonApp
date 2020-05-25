@@ -1,0 +1,38 @@
+#waggonListTable {
+  width: 100%;
+}
+
+#waggonCell {
+  background-color: #dddddd;
+  width: 58%;
+}
+
+#waggonImageCell {
+  background-color: #dddddd;
+  width: 7%;
+}
+
+#waggonUpCell {
+  background-color: #dddddd;
+  width: 7%;
+}
+
+#waggonDownCell {
+  background-color: #dddddd;
+  width: 7%;
+}
+
+#waggonRemoveCell {
+  background-color: #dddddd;
+  width: 7%;
+}
+
+#waggonToEndCell {
+  background-color: #dddddd;
+  width: 7%;
+}
+
+#waggonCreateCell {
+  background-color: #dddddd;
+  width: 7%;
+}
