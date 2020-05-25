@@ -1,0 +1,17 @@
+#trainListTable {
+  width: 100%;
+}
+
+#trainListTableRow {
+  height: 50px;
+}
+
+#trainCell {
+  background-color: #dddddd;
+  width: 80%;
+}
+
+#trainActionCell {
+  background-color: #dddddd;
+  width: 20%;
+}
