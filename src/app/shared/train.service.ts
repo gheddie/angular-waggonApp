@@ -14,8 +14,8 @@ export class TrainService {
     this.client = aClient;
   }
 
-  createWaggon(aWaggonNumber: string, aTrainId: string,  atPosition: number) {
-    console.log('creating waggon: ' + aWaggonNumber);
+  createWaggon(aWaggonNumber: string, aTrainId: number,  atPosition: number) {
+    console.log('creating waggon: [aWaggonNumber:' + aWaggonNumber + ', aTrainId:' + aTrainId + ', atPosition:' + atPosition + '].');
     const body = {waggonNumber: aWaggonNumber, trainId: aTrainId, waggonType: 'AVEX', position: atPosition};
     this.client.put('http://localhost:8080/waggon', body).subscribe(
       (response) => {
@@ -29,7 +29,7 @@ export class TrainService {
     console.log('succesfully created waggon ' + aTrainId + '.');
   }
 
-  changeTrainState(aTrainId: string, anAction: string) {
+  changeTrainState(aTrainId: number, anAction: string) {
     console.log('changing train state of train ' + aTrainId + ', action: ' + anAction);
     const body = {trainId: aTrainId, trainAction: anAction};
     this.client.post('http://localhost:8080/changeTrainState', body).subscribe(
@@ -44,24 +44,33 @@ export class TrainService {
     console.log('succesfully changed train state of train ' + aTrainId + ', action: ' + anAction);
   }
 
-  switchWaggons(aWaggonNumber: string, aTrainId: string, aDirection: string) {
-    console.log('switching waggons, waggon number:' + aWaggonNumber);
-    console.log('switching waggons, train id:' + aTrainId);
-    console.log('switching waggons, direction:' + aDirection);
-    const body = {movedWaggonNumber: aWaggonNumber, trainId: aTrainId, direction: aDirection};
-    this.client.post('http://localhost:8080/moveWaggons', body).subscribe(error => this.handleError(error));
+  manipulateWaggonSequence(aWaggonNumber: string, aTrainId: number, anAction: string) {
+    console.log('manipulating waggon sequence, waggon number:' + aWaggonNumber);
+    console.log('manipulating waggon sequence, train id:' + aTrainId);
+    console.log('manipulating waggon sequence, direction:' + anAction);
+    const body = {movedWaggonNumber: aWaggonNumber, trainId: aTrainId, direction: anAction};
+    this.client.post('http://localhost:8080/moveWaggon', body).subscribe(
+      (response) => {
+        // ...
+      },
+      (error) => {
+        console.log('error caught...');
+        this.handleError(error);
+      }
+    );
   }
 
-  getTrain(trainNumber: string): TrainDto {
+  getTrain(trainId: number): TrainDto {
 
-    console.log('loading train: ' + trainNumber);
+    console.log('loading train: ' + trainId);
 
     let train = new TrainDto();
     let aWaggons = new Array();
-    this.client.get('http://localhost:8080/waggondata?trainNumber=' + trainNumber)
+    this.client.get('http://localhost:8080/waggondata?trainId=' + trainId)
       .subscribe(data => {
 
         train.trainNumber = data['trainNumber'];
+        train.trainId = data['trainId'];
 
         console.log('read train: ' + data['trainNumber']);
         console.log('read waggon list: ' + data['waggons']);
@@ -71,7 +80,13 @@ export class TrainService {
 
         for (let index = 0; index < length; index++) {
           console.log('read waggon ' + index + ': ' + data['waggons'][index]['waggonNumber']);
-          aWaggons.push(new WaggonDto(data['waggons'][index]['waggonNumber'], data['waggons'][index]['waggonType']));
+          aWaggons.push(new WaggonDto(
+            +data['waggons'][index]['waggonId'],
+            +data['waggons'][index]['trainId'],
+            data['waggons'][index]['waggonNumber'],
+            data['waggons'][index]['waggonType']
+            )
+          );
           console.log('push waggon...');
         }
       }, error => {
@@ -80,7 +95,7 @@ export class TrainService {
 
     train.waggons = aWaggons;
     console.log('set ' + aWaggons.length + ' waggons.');
-    console.log('loaded train ' + trainNumber + ' with ' + train.waggons.length + ' waggons.');
+    console.log('loaded train ' + trainId + ' with ' + train.waggons.length + ' waggons.');
     return train;
   }
 
@@ -95,6 +110,7 @@ export class TrainService {
         console.log('Anzahl Züge: ' + length);
         for (let index = 0; index < length; index++) {
           let train = new TrainDto();
+          train.trainId = data[index]['trainId'];
           train.trainNumber = data[index]['trainNumber'];
           train.trainState = data[index]['trainState'];
           aTrains.push(train);
@@ -104,11 +120,6 @@ export class TrainService {
       });
 
     return aTrains;
-  }
-
-  waggonToEnd(aWaggonNumber: string, aTrainId: string) {
-    const body = {movedWaggonNumber: aWaggonNumber, trainId: aTrainId, direction: 'TOEND'};
-    this.client.post('http://localhost:8080/moveWaggons', body).subscribe(error => this.handleError(error));
   }
 
   handleError(error: object) {

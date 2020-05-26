@@ -2,6 +2,8 @@ import {WaggonDto} from './waggon-dto';
 
 export class TrainDto {
 
+  trainId: number;
+
   trainNumber: string;
 
   trainState: string;

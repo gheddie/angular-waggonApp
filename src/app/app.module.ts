@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {CreateWaggonDialogComponent} from './train/create-waggon-dialog.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { DamageListComponent } from './damage-list/damage-list.component';
 
 const routes: Routes = [
   {path: 'train/:id', component: TrainComponent},
@@ -28,7 +29,8 @@ const routes: Routes = [
     AppComponent,
     TrainComponent,
     TrainListComponent,
-    CreateWaggonDialogComponent
+    CreateWaggonDialogComponent,
+    DamageListComponent
   ],
   imports: [
     MatDialogModule,

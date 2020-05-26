@@ -21,7 +21,7 @@ export class TrainListComponent implements OnInit {
     this.trains = this.trainService.getTrains();
   }
 
-  departTrain(trainId: string) {
+  departTrain(trainId: number) {
     if (confirm('Zug abfahren?')) {
       console.log('departing train: ' + trainId);
       this.trainService.changeTrainState(trainId, 'DEPARTURE');
@@ -29,7 +29,7 @@ export class TrainListComponent implements OnInit {
     }
   }
 
-  arriveTrain(trainId: string) {
+  arriveTrain(trainId: number) {
     if (confirm('Zug ankommen?')) {
       console.log('arriving train: ' + trainId);
       this.trainService.changeTrainState(trainId, 'ARRIVAL');
