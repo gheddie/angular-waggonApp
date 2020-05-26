@@ -18,10 +18,13 @@ import {CreateWaggonDialogComponent} from './train/create-waggon-dialog.componen
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { DamageListComponent } from './damage-list/damage-list.component';
+import { WaggonComponent } from './waggon/waggon.component';
 
 const routes: Routes = [
   {path: 'train/:id', component: TrainComponent},
-  {path: 'trains', component: TrainListComponent}
+  {path: 'trains', component: TrainListComponent},
+  {path: 'train/:id/waggon/:id/damages', component: DamageListComponent},
+  {path: 'waggon/:id', component: WaggonComponent}
 ];
 
 @NgModule({
@@ -30,7 +33,8 @@ const routes: Routes = [
     TrainComponent,
     TrainListComponent,
     CreateWaggonDialogComponent,
-    DamageListComponent
+    DamageListComponent,
+    WaggonComponent
   ],
   imports: [
     MatDialogModule,

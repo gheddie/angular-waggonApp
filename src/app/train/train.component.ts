@@ -16,11 +16,16 @@ export class TrainComponent implements OnInit {
   private trainService: TrainService;
   loadedTrain: TrainDto;
 
+  str: string;
+
   constructor(private route: ActivatedRoute, aTrainService: TrainService, public dialog: MatDialog) {
     this.trainService = aTrainService;
   }
 
   ngOnInit(): void {
+
+    this.str = '123';
+
     console.log('Zug anzeigen: ' + this.route.snapshot.params.id);
     this.loadedTrain = this.trainService.getTrain(this.route.snapshot.params.id);
     console.log('Wagen geladen: ' + this.loadedTrain.waggons.length);
