@@ -42,15 +42,15 @@
     <table id="waggonTable{{index}}">
       <tr>
         <td>Länge:</td>
-        <td>123</td>
+        <td>{{ waggon.waggonLenght }}</td>
       <tr>
       <tr>
         <td>Maximalladung:</td>
-        <td>456</td>
+        <td>{{ waggon.maximumLoad }}</td>
       <tr>
       <tr>
         <td>Bremse:</td>
-        <td>789</td>
+        <td>{{ waggon.brakeType }}</td>
       <tr>
     </table>
     <a routerLink="/damages/{{ waggon.waggonId }}">Schäden</a>

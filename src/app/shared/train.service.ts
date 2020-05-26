@@ -84,7 +84,10 @@ export class TrainService {
             +data['waggons'][index]['waggonId'],
             +data['waggons'][index]['trainId'],
             data['waggons'][index]['waggonNumber'],
-            data['waggons'][index]['waggonType']
+            data['waggons'][index]['waggonType'],
+            data['waggons'][index]['waggonLenght'],
+            data['waggons'][index]['maximumLoad'],
+            data['waggons'][index]['brakeType']
             )
           );
           console.log('push waggon...');
