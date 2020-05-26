@@ -44,11 +44,11 @@ export class TrainService {
     console.log('succesfully changed train state of train ' + aTrainId + ', action: ' + anAction);
   }
 
-  manipulateWaggonSequence(aWaggonNumber: string, aTrainId: number, anAction: string) {
+  manipulateWaggonSequence(aWaggonNumber: string, aTrainId: number, aWaggonManipulationType: string) {
     console.log('manipulating waggon sequence, waggon number:' + aWaggonNumber);
     console.log('manipulating waggon sequence, train id:' + aTrainId);
-    console.log('manipulating waggon sequence, direction:' + anAction);
-    const body = {movedWaggonNumber: aWaggonNumber, trainId: aTrainId, direction: anAction};
+    console.log('manipulating waggon sequence, direction:' + aWaggonManipulationType);
+    const body = {movedWaggonNumber: aWaggonNumber, trainId: aTrainId, waggonManipulationType: aWaggonManipulationType};
     this.client.post('http://localhost:8080/moveWaggon', body).subscribe(
       (response) => {
         // ...
