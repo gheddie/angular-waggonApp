@@ -2,6 +2,12 @@
   <h1>Wagenliste für Zug {{loadedTrain.trainNumber}}:</h1>
 </div>
 
+<a (click)="inflateAllWaggons(true)">Alle aufklappen</a>
+<br>
+<a (click)="inflateAllWaggons(false)">Alle einklappen</a>
+<br>
+<a (click)="inflateAllDamageWaggons()">Schäden aufklappen</a>
+
 <div class="bordereditem" *ngFor="let waggon of loadedTrain.waggons; let index = index">
   <table id="waggonListTable">
     <tr id="waggonListTableRow">
@@ -53,6 +59,6 @@
         <td>{{ waggon.brakeType }}</td>
       <tr>
     </table>
-    <a routerLink="waggon/{{ waggon.waggonId }}/damages">Schäden</a>
+    <a *ngIf="waggon.damageCount > 0" routerLink="waggon/{{ waggon.waggonId }}/damages">Schäden ({{waggon.damageCount}})</a>
   </div>
 </div>

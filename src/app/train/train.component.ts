@@ -16,7 +16,7 @@ export class TrainComponent implements OnInit {
   private trainService: TrainService;
   loadedTrain: TrainDto;
 
-  str: string;
+  // str: string;
 
   constructor(private route: ActivatedRoute, aTrainService: TrainService, public dialog: MatDialog) {
     this.trainService = aTrainService;
@@ -24,7 +24,7 @@ export class TrainComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.str = '123';
+    // this.str = '123';
 
     console.log('Zug anzeigen: ' + this.route.snapshot.params.id);
     this.loadedTrain = this.trainService.getTrain(this.route.snapshot.params.id);
@@ -74,6 +74,32 @@ export class TrainComponent implements OnInit {
 
   waggonClicked(position: number) {
     this.showOrHideInfoPanel(position);
+  }
+
+  inflateAllDamageWaggons() {
+    for (var index = 0; index < this.loadedTrain.waggons.length; index++) {
+      const infoFrame = document.getElementById('waggonInfo' + index);
+      if (this.loadedTrain.waggons[index].damageCount > 0) {
+        infoFrame.style.visibility = 'visible';
+        infoFrame.style.height = '100px';
+      }
+    }
+  }
+
+  inflateAllWaggons(inflate: boolean) {
+    console.log('double clicked...');
+    for (var index = 0; index < this.loadedTrain.waggons.length; index++) {
+      // var num = numbers[_i];
+      console.log(index);
+      const infoFrame = document.getElementById('waggonInfo' + index);
+      if (inflate) {
+        infoFrame.style.visibility = 'visible';
+        infoFrame.style.height = '100px';
+      } else {
+        infoFrame.style.visibility = 'hidden';
+        infoFrame.style.height = '0px';
+      }
+    }
   }
 
   showOrHideInfoPanel(position: number) {

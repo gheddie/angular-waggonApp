@@ -14,8 +14,10 @@ export class WaggonDto {
 
   brakeType: string;
 
+  damageCount: number;
+
   constructor(aWaggonId: number, aTrain: number, aWaggonNumber: string, aWaggonType: string,
-              aWaggonLenght: number, aMaximumLoad: number, aBrakeType: string) {
+              aWaggonLenght: number, aMaximumLoad: number, aBrakeType: string, aDamageCount: number) {
     this.waggonId = aWaggonId;
     this.trainId = aTrain;
     this.waggonNumber = aWaggonNumber;
@@ -24,5 +26,7 @@ export class WaggonDto {
     this.waggonLenght = aWaggonLenght;
     this.maximumLoad = aMaximumLoad;
     this.brakeType = aBrakeType;
+
+    this.damageCount = aDamageCount;
   }
 }

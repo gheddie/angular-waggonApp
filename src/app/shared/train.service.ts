@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {WaggonDto} from './entity/waggon-dto';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {TrainDto} from './entity/train-dto';
+import {DamageDto} from './entity/damage-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -60,12 +61,45 @@ export class TrainService {
     );
   }
 
+  getWaggonDamages(waggonId: number) {
+
+    console.log('getWaggonDamages');
+
+    const aDamages = new Array();
+
+    this.client.get('http://localhost:8080/damages?waggonId=' + waggonId)
+      .subscribe(data => {
+
+        console.log(data);
+
+        length = (data as object[]).length;
+        // length = 3;
+        console.log('read damages length: ' + length);
+
+        for (let index = 0; index < length; index++) {
+          const newDamage = new DamageDto(
+            data[index]['description'],
+            data[index]['damageCode']
+          );
+          console.log('read damage: ' + newDamage.description);
+          console.log('pushed damage: ' + newDamage.description);
+          aDamages.push(newDamage);
+        }
+      }, error => {
+        this.handleError(error);
+      });
+
+    console.log('read ' + aDamages.length + ' damages.');
+    return aDamages;
+  }
+
   getTrain(trainId: number): TrainDto {
 
     console.log('loading train: ' + trainId);
 
-    let train = new TrainDto();
-    let aWaggons = new Array();
+    const train = new TrainDto();
+    const aWaggons = new Array();
+
     this.client.get('http://localhost:8080/waggondata?trainId=' + trainId)
       .subscribe(data => {
 
@@ -75,22 +109,22 @@ export class TrainService {
         console.log('read train: ' + data['trainNumber']);
         console.log('read waggon list: ' + data['waggons']);
 
-        length = data['waggons'].length;
+        length = (data['waggons'] as object[]).length;
         console.log('read waggon list length: ' + length);
 
         for (let index = 0; index < length; index++) {
-          console.log('read waggon ' + index + ': ' + data['waggons'][index]['waggonNumber']);
-          aWaggons.push(new WaggonDto(
+          const newWaggon = new WaggonDto(
             +data['waggons'][index]['waggonId'],
             +data['waggons'][index]['trainId'],
             data['waggons'][index]['waggonNumber'],
             data['waggons'][index]['waggonType'],
             data['waggons'][index]['waggonLenght'],
             data['waggons'][index]['maximumLoad'],
-            data['waggons'][index]['brakeType']
-            )
+            data['waggons'][index]['brakeType'],
+            +data['waggons'][index]['damageCount']
           );
-          console.log('push waggon...');
+          console.log('read waggon ' + index + ': ' + newWaggon.waggonNumber + ' (' + newWaggon.damageCount + ' damages)');
+          aWaggons.push(newWaggon);
         }
       }, error => {
         this.handleError(error);
@@ -104,7 +138,7 @@ export class TrainService {
 
   getTrains(): TrainDto[] {
 
-    let aTrains = new Array();
+    const aTrains = new Array();
 
     this.client.get('http://localhost:8080/traindata')
       .subscribe(data => {
