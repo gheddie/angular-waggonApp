@@ -18,7 +18,7 @@ export class TrainService {
   createWaggon(aWaggonNumber: string, aTrainId: number,  atPosition: number) {
     console.log('creating waggon: [aWaggonNumber:' + aWaggonNumber + ', aTrainId:' + aTrainId + ', atPosition:' + atPosition + '].');
     const body = {waggonNumber: aWaggonNumber, trainId: aTrainId, waggonType: 'AVEX', position: atPosition};
-    this.client.put('http://localhost:8080/waggon', body).subscribe(
+    this.client.put('http://localhost:8081/waggon', body).subscribe(
       (response) => {
         // ...
       },
@@ -33,7 +33,7 @@ export class TrainService {
   changeTrainState(aTrainId: number, anAction: string) {
     console.log('changing train state of train ' + aTrainId + ', action: ' + anAction);
     const body = {trainId: aTrainId, trainAction: anAction};
-    this.client.post('http://localhost:8080/changeTrainState', body).subscribe(
+    this.client.post('http://localhost:8081/changeTrainState', body).subscribe(
       (response) => {
         // ...
       },
@@ -50,7 +50,7 @@ export class TrainService {
     console.log('manipulating waggon sequence, train id:' + aTrainId);
     console.log('manipulating waggon sequence, direction:' + aWaggonManipulationType);
     const body = {movedWaggonNumber: aWaggonNumber, trainId: aTrainId, waggonManipulationType: aWaggonManipulationType};
-    this.client.post('http://localhost:8080/moveWaggon', body).subscribe(
+    this.client.post('http://localhost:8081/moveWaggon', body).subscribe(
       (response) => {
         // ...
       },
@@ -67,7 +67,7 @@ export class TrainService {
 
     const aDamages = new Array();
 
-    this.client.get('http://localhost:8080/damages?waggonId=' + waggonId)
+    this.client.get('http://localhost:8081/damages?waggonId=' + waggonId)
       .subscribe(data => {
 
         console.log(data);
@@ -100,7 +100,7 @@ export class TrainService {
     const train = new TrainDto();
     const aWaggons = new Array();
 
-    this.client.get('http://localhost:8080/waggondata?trainId=' + trainId)
+    this.client.get('http://localhost:8081/waggondata?trainId=' + trainId)
       .subscribe(data => {
 
         train.trainNumber = data['trainNumber'];
@@ -140,13 +140,13 @@ export class TrainService {
 
     const aTrains = new Array();
 
-    this.client.get('http://localhost:8080/traindata')
+    this.client.get('http://localhost:8081/traindata')
       .subscribe(data => {
         console.log(data);
-        length = data['length'];
+        length = (data as object[]).length;
         console.log('Anzahl Züge: ' + length);
         for (let index = 0; index < length; index++) {
-          let train = new TrainDto();
+          const train = new TrainDto();
           train.trainId = data[index]['trainId'];
           train.trainNumber = data[index]['trainNumber'];
           train.trainState = data[index]['trainState'];
