@@ -3,6 +3,8 @@ import {WaggonDto} from './entity/waggon-dto';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {TrainDto} from './entity/train-dto';
 import {DamageDto} from './entity/damage-dto';
+import {Observable} from 'rxjs';
+import {absoluteFrom} from '@angular/compiler-cli/src/ngtsc/file_system';
 
 @Injectable({
   providedIn: 'root'
@@ -31,18 +33,34 @@ export class TrainService {
   }
 
   changeTrainState(aTrainId: number, anAction: string) {
+
     console.log('changing train state of train ' + aTrainId + ', action: ' + anAction);
-    const body = {trainId: aTrainId, trainAction: anAction};
-    this.client.post('http://localhost:8081/changeTrainState', body).subscribe(
-      (response) => {
-        // ...
+
+    const httpObserver = {
+      error: err => {
+        console.log('got an ERROR from server...') ;
+        this.handleError(err);
       },
-      (error) => {
-        console.log('error caught...');
-        this.handleError(error);
+      complete: () => {
+        console.log('got a NOTIFICATION from server...') ;
+        // for 'ajax' feeling...
+        /*
+        switch (anAction) {
+          case 'DEPARTURE':
+            console.log('success: altering image (old state: ' + anAction + ')....');
+            document.getElementById('departTrainImg' + aTrainId).setAttribute('src', 'assets/ico/arrivetrain.png');
+            break;
+          case 'ARRIVAL':
+            // nothing --> no image anymore (remove if present) !!
+            if (document.getElementById('departTrainImg' + aTrainId) != null) {
+              document.removeChild(document.getElementById('departTrainImg' + aTrainId));
+            }
+            break;
+        }
+        */
       }
-    );
-    console.log('succesfully changed train state of train ' + aTrainId + ', action: ' + anAction);
+    };
+    this.client.post('http://localhost:8081/changeTrainState', {trainId: aTrainId, trainAction: anAction}).subscribe(httpObserver);
   }
 
   manipulateWaggonSequence(aWaggonNumber: string, aTrainId: number, aWaggonManipulationType: string) {
@@ -163,13 +181,9 @@ export class TrainService {
     console.log('handling an error...');
     if (error instanceof  HttpErrorResponse) {
       console.log('error is an HttpErrorResponse, status: ' + (error as HttpErrorResponse).status);
-      // TODO why does us a 200 from server give a 'HttpErrorResponse'?!?
-      if ((error as HttpErrorResponse).status === 200) {
-        // alert('Fehler: ' + (error as HttpErrorResponse).error);
-      } else {
-        // this is a server error...
-        alert('Fehler: ' + (error as HttpErrorResponse).error);
-      }
+      alert('Fehler (HttpErrorResponse): ' + (error as HttpErrorResponse).error);
+    } else {
+      alert('Unbekannter Fehler: ' + error);
     }
   }
 }
